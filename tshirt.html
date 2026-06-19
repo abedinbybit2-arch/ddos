@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UrbanThread — Premium T-Shirts</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #0f0f0f;
+  color: #fff;
+}
+
+/* ── NAV ── */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  border-bottom: 1px solid #1f1f1f;
+  position: sticky;
+  top: 0;
+  background: rgba(15,15,15,.95);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+.brand { font-size: 1.3rem; font-weight: 800; letter-spacing: 2px; color: #fff; }
+.brand span { color: #e63946; }
+.nav-links { display: flex; gap: 28px; font-size: .85rem; color: #888; }
+.nav-links a { color: #888; text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: #fff; }
+.cart-btn {
+  background: #e63946;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ── HERO ── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 88vh;
+  align-items: center;
+}
+.hero-left {
+  padding: 60px 40px 60px 60px;
+}
+.badge {
+  display: inline-block;
+  background: rgba(230,57,70,.15);
+  color: #e63946;
+  border: 1px solid rgba(230,57,70,.3);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-size: 3.4rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+.hero h1 span { color: #e63946; }
+.hero p {
+  color: #888;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 420px;
+}
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.price { font-size: 2rem; font-weight: 800; color: #fff; }
+.price-old { font-size: 1rem; color: #444; text-decoration: line-through; }
+.discount { background: #e63946; color: #fff; font-size: .72rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; }
+
+.size-row { margin-bottom: 28px; }
+.size-label { font-size: .75rem; color: #555; letter-spacing: 1px; margin-bottom: 10px; }
+.sizes { display: flex; gap: 8px; }
+.sz {
+  width: 40px; height: 40px;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .8rem; font-weight: 600; color: #666;
+  cursor: pointer; transition: all .2s;
+}
+.sz:hover, .sz.active { border-color: #e63946; color: #fff; background: rgba(230,57,70,.1); }
+
+.btn-buy {
+  background: #e63946;
+  color: #fff;
+  border: none;
+  padding: 16px 40px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 12px;
+  transition: opacity .2s, transform .1s;
+  letter-spacing: .5px;
+}
+.btn-buy:hover { opacity: .88; }
+.btn-buy:active { transform: scale(.97); }
+.btn-wish {
+  background: #1a1a1a;
+  color: #888;
+  border: 1px solid #2a2a2a;
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-size: .9rem;
+  cursor: pointer;
+  transition: all .2s;
+}
+.btn-wish:hover { border-color: #444; color: #fff; }
+
+.trust { display: flex; gap: 20px; margin-top: 28px; }
+.trust-item { display: flex; align-items: center; gap: 6px; font-size: .75rem; color: #555; }
+.trust-item span { font-size: 1rem; }
+
+/* ── HERO RIGHT ── */
+.hero-right {
+  background: #161616;
+  height: 88vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.tshirt-mockup {
+  width: 320px;
+  height: 360px;
+  position: relative;
+}
+.tshirt-svg {
+  width: 100%;
+  height: 100%;
+}
+.floating-tag {
+  position: absolute;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: .72rem;
+}
+.floating-tag.tl { top: 14%; left: 4%; }
+.floating-tag.br { bottom: 18%; right: 4%; }
+.floating-tag .ft-label { color: #555; margin-bottom: 2px; }
+.floating-tag .ft-val { color: #fff; font-weight: 700; }
+.dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, #2a2a2a 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: .4;
+  pointer-events: none;
+}
+
+/* ── FEATURES ── */
+.features {
+  padding: 80px 60px;
+  border-top: 1px solid #1a1a1a;
+}
+.features h2 { font-size: 1.8rem; font-weight: 800; text-align: center; margin-bottom: 50px; }
+.features h2 span { color: #e63946; }
+.feat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.feat-card {
+  background: #131313;
+  border: 1px solid #1f1f1f;
+  border-radius: 10px;
+  padding: 28px;
+  transition: border-color .2s;
+}
+.feat-card:hover { border-color: #333; }
+.feat-icon { font-size: 1.8rem; margin-bottom: 14px; }
+.feat-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+.feat-card p { font-size: .83rem; color: #666; line-height: 1.6; }
+
+/* ── PRODUCTS ── */
+.products {
+  padding: 80px 60px;
+  border-top: 1px solid #1a1a1a;
+}
+.products h2 { font-size: 1.8rem; font-weight: 800; text-align: center; margin-bottom: 50px; }
+.products h2 span { color: #e63946; }
+.prod-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.prod-card {
+  background: #131313;
+  border: 1px solid #1f1f1f;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .2s, border-color .2s;
+}
+.prod-card:hover { transform: translateY(-4px); border-color: #333; }
+.prod-img {
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+}
+.prod-img.c1 { background: linear-gradient(135deg,#1a0000,#2a0a0a); }
+.prod-img.c2 { background: linear-gradient(135deg,#001a0a,#0a2a14); }
+.prod-img.c3 { background: linear-gradient(135deg,#00001a,#0a0a2a); }
+.prod-info { padding: 18px; }
+.prod-name { font-weight: 700; margin-bottom: 4px; }
+.prod-sub { font-size: .78rem; color: #666; margin-bottom: 12px; }
+.prod-bottom { display: flex; justify-content: space-between; align-items: center; }
+.prod-price { font-weight: 800; color: #e63946; }
+.prod-btn {
+  background: #1f1f1f;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 5px;
+  font-size: .78rem;
+  cursor: pointer;
+  transition: background .2s;
+}
+.prod-btn:hover { background: #e63946; }
+
+/* ── CTA ── */
+.cta {
+  padding: 80px 60px;
+  text-align: center;
+  border-top: 1px solid #1a1a1a;
+  background: #0a0a0a;
+}
+.cta h2 { font-size: 2.4rem; font-weight: 900; margin-bottom: 14px; }
+.cta h2 span { color: #e63946; }
+.cta p { color: #666; margin-bottom: 32px; font-size: .95rem; }
+.cta .btn-buy { font-size: 1.1rem; padding: 18px 48px; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid #1a1a1a;
+  padding: 28px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .78rem;
+  color: #444;
+}
+
+/* ── MONITOR OVERLAY ── */
+#monitor {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: rgba(10,10,10,.95);
+  border: 1px solid #222;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-family: 'Courier New', monospace;
+  font-size: .72rem;
+  color: #444;
+  z-index: 9999;
+  min-width: 200px;
+  backdrop-filter: blur(8px);
+}
+#monitor .m-row { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 4px; }
+#monitor .m-label { color: #333; }
+#monitor .m-val { color: #666; }
+#monitor .m-val.red { color: #ff3c3c; }
+#monitor .m-val.green { color: #00e676; }
+#monitor .m-tg { color: #333; margin-top: 6px; font-size: .65rem; border-top: 1px solid #1a1a1a; padding-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
+
+/* toast */
+#toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-60px);
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: .85rem;
+  transition: transform .3s;
+  z-index: 9999;
+  pointer-events: none;
+}
+#toast.show { transform: translateX(-50%) translateY(0); }
+
+@media(max-width:768px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero h1 { font-size: 2.2rem; }
+  .feat-grid, .prod-grid { grid-template-columns: 1fr; }
+  nav { padding: 14px 20px; }
+  .hero-left { padding: 40px 20px; }
+  .features, .products, .cta { padding: 50px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="brand">URBAN<span>THREAD</span></div>
+  <div class="nav-links">
+    <a href="#">Shop</a>
+    <a href="#">Collections</a>
+    <a href="#">About</a>
+  </div>
+  <button class="cart-btn" onclick="track('cart-click')">🛒 Cart (0)</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="badge">✦ New Drop 2026</div>
+    <h1>Wear Your<br><span>Statement.</span></h1>
+    <p>Premium quality T-shirts crafted for those who dare to stand out. 100% organic cotton, limited drops, unlimited style.</p>
+
+    <div class="price-row">
+      <div class="price">৳ 850</div>
+      <div class="price-old">৳ 1,200</div>
+      <div class="discount">30% OFF</div>
+    </div>
+
+    <div class="size-row">
+      <div class="size-label">SELECT SIZE</div>
+      <div class="sizes">
+        <div class="sz" onclick="selectSize(this)">S</div>
+        <div class="sz active" onclick="selectSize(this)">M</div>
+        <div class="sz" onclick="selectSize(this)">L</div>
+        <div class="sz" onclick="selectSize(this)">XL</div>
+        <div class="sz" onclick="selectSize(this)">XXL</div>
+      </div>
+    </div>
+
+    <div>
+      <button class="btn-buy" onclick="track('buy-now')">Buy Now →</button>
+      <button class="btn-wish" onclick="track('wishlist')">♡</button>
+    </div>
+
+    <div class="trust">
+      <div class="trust-item"><span>🚚</span> Free Delivery</div>
+      <div class="trust-item"><span>↩️</span> 7-Day Return</div>
+      <div class="trust-item"><span>🛡️</span> Secure Pay</div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="dot-grid"></div>
+    <div class="tshirt-mockup">
+      <svg class="tshirt-svg" viewBox="0 0 300 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M75 30 L30 90 L75 110 L75 300 L225 300 L225 110 L270 90 L225 30 Q190 50 150 50 Q110 50 75 30Z" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1.5"/>
+        <path d="M75 30 Q110 50 150 50 Q190 50 225 30" fill="none" stroke="#333" stroke-width="1"/>
+        <text x="150" y="190" text-anchor="middle" fill="#e63946" font-size="22" font-weight="900" font-family="Segoe UI,sans-serif" letter-spacing="3">URBAN</text>
+        <text x="150" y="215" text-anchor="middle" fill="#333" font-size="11" font-family="Courier New,monospace" letter-spacing="6">THREAD</text>
+        <circle cx="150" cy="155" r="18" fill="none" stroke="#e63946" stroke-width="1" opacity=".4"/>
+        <text x="150" y="161" text-anchor="middle" fill="#e63946" font-size="16">✦</text>
+      </svg>
+    </div>
+    <div class="floating-tag tl">
+      <div class="ft-label">MATERIAL</div>
+      <div class="ft-val">100% Organic</div>
+    </div>
+    <div class="floating-tag br">
+      <div class="ft-label">RATING</div>
+      <div class="ft-val">⭐ 4.9 / 5</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <h2>Why <span>UrbanThread?</span></h2>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-icon">🌿</div>
+      <h3>Organic Cotton</h3>
+      <p>Sourced from certified organic farms. Soft on skin, kind to planet.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🎨</div>
+      <h3>Fade-Proof Prints</h3>
+      <p>Premium DTG printing that stays vibrant wash after wash.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">✂️</div>
+      <h3>Perfect Fit</h3>
+      <p>Tailored cuts for every body type. Slim, regular, and oversized.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products">
+  <h2>Our <span>Collection</span></h2>
+  <div class="prod-grid">
+    <div class="prod-card" onclick="track('product-shadow')">
+      <div class="prod-img c1">🖤</div>
+      <div class="prod-info">
+        <div class="prod-name">Shadow Edition</div>
+        <div class="prod-sub">Matte Black · Oversized</div>
+        <div class="prod-bottom">
+          <div class="prod-price">৳ 950</div>
+          <button class="prod-btn">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="prod-card" onclick="track('product-forest')">
+      <div class="prod-img c2">💚</div>
+      <div class="prod-info">
+        <div class="prod-name">Forest Drop</div>
+        <div class="prod-sub">Deep Green · Regular</div>
+        <div class="prod-bottom">
+          <div class="prod-price">৳ 850</div>
+          <button class="prod-btn">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="prod-card" onclick="track('product-midnight')">
+      <div class="prod-img c3">💙</div>
+      <div class="prod-info">
+        <div class="prod-name">Midnight Blue</div>
+        <div class="prod-sub">Navy · Slim Fit</div>
+        <div class="prod-bottom">
+          <div class="prod-price">৳ 800</div>
+          <button class="prod-btn">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Limited Stock.<br><span>Order Now.</span></h2>
+  <p>Only 47 pieces left. Don't miss the drop.</p>
+  <button class="btn-buy" onclick="track('cta-order')">Order Now →</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2026 UrbanThread. All rights reserved.</div>
+  <div>Made with ❤️ in Bangladesh</div>
+</footer>
+
+<!-- MONITOR -->
+<div id="monitor">
+  <div class="m-row"><span class="m-label">REQ/SEC</span><span class="m-val" id="m-rps">0</span></div>
+  <div class="m-row"><span class="m-label">TOTAL</span><span class="m-val" id="m-total">0</span></div>
+  <div class="m-row"><span class="m-label">STATUS</span><span class="m-val green" id="m-status">SAFE</span></div>
+  <div class="m-tg" id="m-tg">Telegram: ready</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  CONFIG — এখানে তোমার token ও chat id দাও
+// ═══════════════════════════════════════════
+const BOT_TOKEN       = "YOUR_BOT_TOKEN_HERE";
+const CHAT_ID         = "YOUR_CHAT_ID_HERE";
+const DDOS_THRESHOLD  = 10;   // এই সংখ্যার বেশি req/sec হলে DDoS ধরবে
+// ═══════════════════════════════════════════
+
+let total     = 0;
+let ipMap     = {};
+let bucket    = [];   // last-1s timestamps
+let isAttack  = false;
+
+// visitor এর IP বের করো (ipify API)
+let visitorIP = 'unknown';
+fetch('https://api.ipify.org?format=json')
+  .then(r => r.json())
+  .then(d => { visitorIP = d.ip; })
+  .catch(() => { visitorIP = 'unknown'; });
+
+// ── প্রতি সেকেন্ডে চলে ──
+setInterval(() => {
+  const now = Date.now();
+  bucket = bucket.filter(t => now - t < 1000);
+  const rps = bucket.length;
+
+  // UI update
+  document.getElementById('m-total').textContent = total;
+  const rpsEl = document.getElementById('m-rps');
+  rpsEl.textContent = rps;
+
+  const nowAttack = rps >= DDOS_THRESHOLD;
+  const stEl = document.getElementById('m-status');
+  if (nowAttack) {
+    stEl.textContent = 'ATTACK!'; stEl.className = 'm-val red';
+    rpsEl.className = 'm-val red';
+  } else {
+    stEl.textContent = 'SAFE'; stEl.className = 'm-val green';
+    rpsEl.className = 'm-val';
+  }
+
+  // Telegram পাঠানো
+  if (rps === 0) { isAttack = false; return; }
+
+  if (nowAttack && !isAttack) {
+    // attack শুরু
+    tg(`🚨 *DDoS Attack শুরু!*\n⚡ Req/sec: *${rps}*\n📊 Total: ${total}\n🕐 ${ts()}`);
+  } else if (!nowAttack && isAttack) {
+    // attack শেষ
+    tg(`✅ *Attack শেষ। Traffic স্বাভাবিক।*\nReq/sec: ${rps}\n🕐 ${ts()}`);
+  } else if (nowAttack) {
+    // DDoS চলছে — প্রতি সেকেন্ডে summary
+    const topIPs = Object.entries(ipMap)
+      .sort((a,b) => b[1]-a[1]).slice(0,5)
+      .map(([ip,c]) => `  • \`${ip}\` — ${c} req`).join('\n');
+    tg(`⚠️ *DDoS চলছে*\n⚡ Req/sec: *${rps}* | Total: ${total}\n👥 Unique IPs: ${Object.keys(ipMap).length}\n\n🔴 *Top IPs:*\n${topIPs}\n🕐 ${ts()}`);
+  } else {
+    // normal — প্রতি সেকেন্ডে update
+    tg(`📶 *Normal Traffic*\nReq/sec: ${rps} | Total: ${total}\n🕐 ${ts()}`);
+  }
+
+  isAttack = nowAttack;
+}, 1000);
+
+// ── Request track করো ──
+function track(action) {
+  total++;
+  bucket.push(Date.now());
+  ipMap[visitorIP] = (ipMap[visitorIP] || 0) + 1;
+
+  // প্রতিটা individual request সাথে সাথে Telegram এ যাবে
+  tg(`📩 *New Request*\n🌐 IP: \`${visitorIP}\`\n🔘 Action: ${action}\n🕐 ${ts()}`);
+
+  showToast('✓ Added!');
+}
+
+// ── Page load এ একটা request log হবে ──
+window.addEventListener('load', () => {
+  total++;
+  bucket.push(Date.now());
+  setTimeout(() => {
+    ipMap[visitorIP] = (ipMap[visitorIP] || 0) + 1;
+    tg(`👁️ *Page Visit*\n🌐 IP: \`${visitorIP}\`\n🕐 ${ts()}`);
+  }, 800);
+});
+
+// ── Telegram sender ──
+async function tg(text) {
+  document.getElementById('m-tg').textContent = text.replace(/\*/g,'').split('\n')[0];
+  try {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: CHAT_ID, text, parse_mode: 'Markdown' })
+    });
+  } catch(e) {
+    document.getElementById('m-tg').textContent = 'TG Error: ' + e.message;
+  }
+}
+
+function ts() { return new Date().toLocaleTimeString('en-GB'); }
+
+function selectSize(el) {
+  document.querySelectorAll('.sz').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  track('size-' + el.textContent);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+</script>
+</body>
+</html>
