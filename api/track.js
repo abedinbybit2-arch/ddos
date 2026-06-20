@@ -1,8 +1,8 @@
 // FILE: api/track.js
 // GitHub repo তে /api/track.js এ রাখো
 
-const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";
-const CHAT_ID   = "YOUR_CHAT_ID_HERE";
+const BOT_TOKEN = "8726361470:AAErTzupAMjDRDopACMXBz0_YMuU_2h2cQg";
+const CHAT_ID   = "1873240895";
 const THRESHOLD = 20; // per second এর বেশি = DDoS
 
 if (!global._s) {
