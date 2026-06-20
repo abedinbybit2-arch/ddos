@@ -3,8 +3,8 @@
 // এই file টা তোমার GitHub repo তে /api/track.js এ রাখো
 // ═══════════════════════════════════════════════
 
-const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";   // ← তোমার bot token
-const CHAT_ID   = "YOUR_CHAT_ID_HERE";     // ← তোমার chat id
+const BOT_TOKEN = "8726361470:AAErTzupAMjDRDopACMXBz0_YMuU_2h2cQg";   // ← তোমার bot token
+const CHAT_ID   = "1873240895";     // ← তোমার chat id
 const THRESHOLD = 20; // per second এর বেশি হলে DDoS ধরবে
 
 // Vercel এ global variable দিয়ে request count রাখা হয়
